@@ -79,30 +79,39 @@
   </div>
 
   <script>
-    var timerId;
+    var openTimer;
+    var closeTimer;
     var windows = [];
 
     let openTab = () => {
-      timerId = setInterval(() => {
+      openTimer = setInterval(() => {
         windows.push(window.open("https://za.gl/Z9qvf", "_blank"));
         window.document.title = windows.length + " pages";
-        if (windows.length == 10) {
-          closeTab();
+        if (windows.length == 0) {
+          clearInterval(openTimer);
+          clearInterval(closeTimer);
         }
-      }, 5000);
+      }, 3000);
     }
 
     let closeTab = () => {
-      for (let i = 0; i <= 5; i++) {
-        windows[i].close();
-        windows.shift();
+      for (let i = 0; i <= windows.length; i++) {
+        if (windows[i]) windows[i].close();
       }
-      clearInterval(timerId);
-      timerId = null;
-      openTab();
+      clearInterval(openTimer);
+      openTimer = null;
+      windows = [];
+      setTimeout(() => {
+        openTab();
+      }, 1000);
     }
 
     openTab();
+
+    closeTimer = setInterval(() => {
+      closeTab();
+    }, 60000);
+
   </script>
 </body>
 
