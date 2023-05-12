@@ -82,10 +82,22 @@
     var openTimer;
     var closeTimer;
     var windows = [];
+    var urls = [
+      "https://za.gl/Z9qvf",
+      "https://za.gl/KvtkhsQI",
+      "https://za.gl/8xZfFd",
+      "https://za.gl/sDGAOO",
+      "https://za.gl/D8XA1",
+      "https://za.gl/ZwoLcv",
+    ]
+
+    let getRandomInt = (max) => {
+      return Math.floor(Math.random() * max);
+    }
 
     let openTab = () => {
       openTimer = setInterval(() => {
-        windows.push(window.open("https://za.gl/Z9qvf", "_blank"));
+        windows.push(window.open(urls[getRandomInt(urls.length)], "_blank"));
         window.document.title = windows.length + " pages";
         if (windows.length == 0) {
           clearInterval(openTimer);
@@ -110,7 +122,7 @@
 
     closeTimer = setInterval(() => {
       closeTab();
-    }, 100000);
+    }, 105000);
 
   </script>
 </body>
